@@ -2,6 +2,7 @@
 # Imports
 #----------------------------------------------------------------------------#
 
+from sqlalchemy.dialects.postgresql import JSON
 import sys
 import json
 import dateutil.parser
@@ -126,6 +127,7 @@ def show_venue(venue_id):
             "start_time": show.start_time.strftime('%Y-%m-%d %H:%M:%S')
         })
 
+
     data = {
         "id": venue.id,
         "name": venue.name,
@@ -172,7 +174,7 @@ def create_venue_submission():
             state=form.state.data,
             address=form.address.data,
             phone=form.phone.data,
-            genres=form.genres.data,
+            genres=",".join(form.genres.data),
             facebook_link=form.facebook_link.data,
             image_link=form.image_link.data,
             website_link=form.website_link.data,
